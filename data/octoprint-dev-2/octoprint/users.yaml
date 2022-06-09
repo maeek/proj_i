@@ -1,0 +1,14 @@
+print:
+  active: true
+  apikey: C25B9256224A43679EC0CA5BA361940C
+  groups:
+  - users
+  - admins
+  password: a46aa7258bf689f21e8df01742b57b058a7abef7c15a46c913351ef950127d059869635cc08abf1ded866bd86abecca2ca076af9d2d0b5b02bbba8b55cf9ab4d
+  permissions: []
+  roles:
+  - user
+  - admin
+  settings:
+    interface:
+      language: _default

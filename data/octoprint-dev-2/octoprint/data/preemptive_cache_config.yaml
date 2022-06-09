@@ -1,0 +1,11 @@
+/:
+- _count: 1
+  _timestamp: 1654797384.749547
+  base_url: http://localhost:8082/
+  path: /
+  query_string: l10n=en
+- _count: 1
+  _timestamp: 1654793410.5826733
+  base_url: http://localhost:8081/
+  path: /
+  query_string: l10n=en
