@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { PrinterModule } from './printer/printer.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [PrinterModule],
+  imports: [PrinterModule, UserModule],
   controllers: [],
   providers: [],
 })
