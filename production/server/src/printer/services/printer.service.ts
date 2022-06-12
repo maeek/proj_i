@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid, v4 } from 'uuid';
 import { CreatePrinterDto } from '../dto/create-printer.dto';
+import { Print } from '../schemas/printer.schema';
 import { OctoprintService } from './octoprint.service';
 import { PrintersRepository } from './printer.repository';
 
@@ -113,8 +114,17 @@ export class PrinterService {
       throw new Error('Printer not found');
     }
 
-    const { name, type, createdAt, ip, port, lastPrintAt, apiKey, proto } =
-      foundPrinter;
+    const {
+      name,
+      type,
+      createdAt,
+      ip,
+      port,
+      lastPrintAt,
+      apiKey,
+      proto,
+      prints,
+    } = foundPrinter;
 
     const { status } = await this.octoprintService.validate({
       ip,
@@ -138,7 +148,44 @@ export class PrinterService {
       },
       lastPrintAt,
       createdAt,
+      prints: prints?.map((p) => ({ ...p, file: '' })),
       ...printer,
     };
+  }
+
+  async print(PrinterId: string, file: Express.Multer.File) {
+    const foundPrinter = await this.printersRepository.findOne({
+      PrinterId,
+    });
+
+    const { ip, port, apiKey, proto } = foundPrinter;
+
+    await this.octoprintService.uploadFile(
+      {
+        ip,
+        port,
+        apiKey,
+        proto,
+      },
+      file,
+    );
+
+    await this.printersRepository.findOneAndUpdate(
+      { PrinterId },
+      {
+        $push: {
+          prints: {
+            UserId: '',
+            PrintId: v4(),
+            status: 'running',
+            startTime: Date.now(),
+            endTime: null,
+            file: file.buffer.toString('base64'),
+          } as Print,
+        },
+      },
+    );
+
+    return this.findOne(PrinterId);
   }
 }

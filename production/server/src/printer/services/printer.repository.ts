@@ -49,7 +49,7 @@ export class PrintersRepository {
 
   async findOneAndUpdate(
     printerFilterQuery: FilterQuery<PrinterDocument>,
-    printer: Partial<Printer>,
+    printer: any,
   ) {
     return this.printerModel.findOneAndUpdate(printerFilterQuery, printer, {
       new: true,

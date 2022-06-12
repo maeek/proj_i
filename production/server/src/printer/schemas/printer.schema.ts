@@ -3,6 +3,15 @@ import { Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { PrinterType } from '../dto/create-printer.dto';
 
+export type Print = {
+  UserId: string;
+  PrintId: string;
+  status: 'scheduled' | 'running' | 'finished' | 'failed' | 'stopped';
+  startTime: number;
+  endTime: number;
+  file: string;
+};
+
 export type PrinterDocument = Printer & Document;
 
 function transformValue(_, ret: { [key: string]: any }) {
@@ -53,6 +62,9 @@ export class Printer {
 
   @Prop({ type: Number })
   lastPrintAt: number;
+
+  @Prop()
+  prints: Print[];
 }
 
 export const PrinterSchema = SchemaFactory.createForClass(Printer);

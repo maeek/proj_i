@@ -8,10 +8,11 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
     .setTitle(`Printer management API`)
-    .addTag('Printer')
-    .setVersion('1.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
+    .setVersion('1.0');
+
+  app.setGlobalPrefix('api');
+
+  const document = SwaggerModule.createDocument(app, options.build());
   SwaggerModule.setup('docs', app, document);
 
   app.use((_req, res: Response, next) => {
