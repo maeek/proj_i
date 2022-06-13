@@ -79,6 +79,6 @@ export class PrinterController {
     @Param('id') id: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    return await this.printerService.print(id, file);
+    return this.printerService.print(id, file);
   }
 }
