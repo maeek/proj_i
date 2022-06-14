@@ -1,6 +1,7 @@
 import { Title, Divider, Group, TextInput, Container, Select, Button, Text } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { useState } from "react";
+import { fetchHelper } from "../../utils/fetch";
 
 export const PrinterAddPage = () => {
   const [error, setError] = useState('');
@@ -24,7 +25,7 @@ export const PrinterAddPage = () => {
   const handleNewPrinter = async (values: any) => {
     setDisabled(true);
 
-    const response = await fetch('/api/printer', {
+    const response = await fetchHelper('/api/printer', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,6 +69,7 @@ export const PrinterAddPage = () => {
                   label="Nazwa drukarki"
                   required
                   placeholder="Drukarka 1"
+                  name="printer-name"
                   {...form.getInputProps('name')}
                 />
 
@@ -76,6 +78,7 @@ export const PrinterAddPage = () => {
                   label="Adres drukarki"
                   required
                   placeholder="x.x.x.x"
+                  name="printer-ip"
                   {...form.getInputProps('ip')}
                 />
 
@@ -84,6 +87,7 @@ export const PrinterAddPage = () => {
                   label="Port drukarki"
                   required
                   placeholder="80"
+                  name="printer-port"
                   {...form.getInputProps('port')}
                 />
 
@@ -95,6 +99,7 @@ export const PrinterAddPage = () => {
                     { value: 'http', label: 'http://' },
                     { value: 'https', label: 'https://' },
                   ]}
+                  name="printer-proto"
                   {...form.getInputProps('proto')}
                 />
 
@@ -114,6 +119,7 @@ export const PrinterAddPage = () => {
                   required
                   label="Klucz API"
                   placeholder="XXXXXXXXXXXXXXXXXXXXX"
+                  name="printer-apikey"
                   {...form.getInputProps('apiKey')}
                 />
         
@@ -125,7 +131,13 @@ export const PrinterAddPage = () => {
                 )
               }
               <Group position="right" my={50}>
-                <Button disabled={disabled} variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }} type="submit">
+                <Button
+                  disabled={disabled}
+                  variant="gradient"
+                  gradient={{ from: 'indigo', to: 'cyan' }}
+                  type="submit"
+                  name="printer-submit"
+                >
                   Dodaj
                 </Button>
               </Group>

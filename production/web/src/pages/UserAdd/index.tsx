@@ -1,6 +1,7 @@
 import { Title, Divider, Group, TextInput, Container, Select, Button, Text } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { useState } from "react";
+import { fetchHelper } from "../../utils/fetch";
 
 export const UserAddPage = () => {
   const [error, setError] = useState('');
@@ -20,7 +21,7 @@ export const UserAddPage = () => {
   const handleNewUser = async (values: any) => {
     setDisabled(true);
 
-    const response = await fetch('/api/user', {
+    const response = await fetchHelper('/api/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

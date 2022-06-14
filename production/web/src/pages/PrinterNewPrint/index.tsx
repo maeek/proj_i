@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Title, Divider, Group, Container, Select, Button, Text } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { Dropzone } from '@mantine/dropzone';
+import { fetchHelper } from "../../utils/fetch";
 
 export const PrinterNewPrintPage = () => {
   const [error, setError] = useState('');
@@ -22,12 +23,10 @@ export const PrinterNewPrintPage = () => {
     const printForm = new FormData();
     printForm.append('file', values.file);
 
-    const response = await fetch(`/api/printer/${values.id}`, {
+    const response = await fetchHelper(`/api/printer/${values.id}`, {
       method: 'POST',
       body: printForm
     });
-
-    console.log(response);
 
     if (response.status < 300) {
       setCreated(true);
@@ -40,7 +39,8 @@ export const PrinterNewPrintPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/api/printer');
+      const response = await fetchHelper('/api/printer');
+      console.log(response);
       const data = await response.json();
 
       if (data.printers) {
@@ -50,6 +50,7 @@ export const PrinterNewPrintPage = () => {
         }));
 
         setData(newData);
+        form.setFieldValue('id', newData[0]?.value);
       } else {
         setError('Nie udało się pobrać listy drukarek');
       }
