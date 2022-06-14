@@ -22,7 +22,6 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { v4 as uuid } from 'uuid';
 import { Express } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 
