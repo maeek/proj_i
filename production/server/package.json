@@ -76,7 +76,14 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.controller.(t|j)s",
+      "**/*.service.(t|j)s"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/printer/dto/",
+      "<rootDir>/user/dto/",
+      "<rootDir>/printer/schemas/",
+      "<rootDir>/user/schemas/"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

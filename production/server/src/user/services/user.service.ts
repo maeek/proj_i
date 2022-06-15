@@ -8,8 +8,6 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async create(createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-    console.log(bcrypt);
     if (['admin', 'root'].includes(createUserDto.name)) {
       throw new HttpException(
         {
