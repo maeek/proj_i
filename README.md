@@ -30,3 +30,7 @@ Testy jednostkowe dla aplikacji webowej są uruchamiane za pomocą komendy:
 cd production/web
 npm run test
 ```
+
+## Testowanie api
+
+W katalogu tests znajdują się kolekcje zapytań i ich testów. Można uruchomić testy za pomocą programu `Postman`.
